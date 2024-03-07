@@ -34,9 +34,11 @@ app.get("/export.csv", async (_req, res) => {
     };
 
     completedData[userId]?.forEach((titleKey) => {
-      if (!titleKeys.includes(titleKey)) titleKeys.push(titleKey);
+      const safeTitleKey = `'${titleKey}`;
 
-      userData[titleKey] = 1;
+      if (!titleKeys.includes(safeTitleKey)) titleKeys.push(safeTitleKey);
+
+      userData[safeTitleKey] = 1;
     });
 
     fullData.push(userData);
